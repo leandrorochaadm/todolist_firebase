@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'core/factories/pages/list/list_page_factory.dart';
+import 'core/factories/factories.dart';
 import 'routes.dart';
 
 class AppModule {

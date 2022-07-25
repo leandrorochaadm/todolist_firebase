@@ -3,9 +3,9 @@ import 'package:flutter/src/foundation/change_notifier.dart';
 import '../core/common/ui_state.dart';
 import '../domain/entities/todo_entity.dart';
 import '../domain/usecases/get_todolist.dart';
-import '../ui/pages/list/list_presenter.dart';
+import '../ui/pages/todolist/todolist.dart';
 
-class ValueNotifierTodoListPresenter implements ListPresenter {
+class ValueNotifierTodoListPresenter implements TodolistPresenter {
   final GetTodolist getTodolist;
   late ValueNotifier<UIState> _state;
 
