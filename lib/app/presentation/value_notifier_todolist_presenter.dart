@@ -1,11 +1,15 @@
 import 'package:flutter/src/foundation/change_notifier.dart';
-import 'package:todo_firebase/app/core/common/ui_state.dart';
-import 'package:todo_firebase/app/domain/entities/todo_entity.dart';
 
+import '../core/common/ui_state.dart';
+import '../domain/entities/todo_entity.dart';
+import '../domain/usecases/get_todolist.dart';
 import '../ui/pages/list/list_presenter.dart';
 
 class ValueNotifierTodoListPresenter implements ListPresenter {
+  final GetTodolist getTodolist;
   late ValueNotifier<UIState> _state;
+
+  ValueNotifierTodoListPresenter({required this.getTodolist});
 
   @override
   late ValueNotifier<List<TodoEntity>> todoListener;
@@ -17,14 +21,21 @@ class ValueNotifierTodoListPresenter implements ListPresenter {
   }
 
   @override
-  void init() {
+  Future<void> init() async {
     _state = ValueNotifier(const UIInitialState());
     todoListener = ValueNotifier([]);
+    await loadTodoList();
   }
 
   @override
-  void loadTodoList() async {
-    // TODO: implement loadTodoList
+  Future<void> loadTodoList() async {
+    try {
+      setState(const UILoadingState());
+      todoListener.value = await getTodolist.call();
+      setState(const UISuccessState(''));
+    } catch (e) {
+      setState(const UIErrorState('Erro ao recuperar lista de tarefas'));
+    }
   }
 
   @override
@@ -32,7 +43,7 @@ class ValueNotifierTodoListPresenter implements ListPresenter {
 
   @override
   void setState(UIState newState) {
-    if (_state.value is! UIInactiveState) {
+    if (_state.value is! UIInactiveState && _state.value != newState) {
       _state.value = newState;
     }
   }

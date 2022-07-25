@@ -1,0 +1,4 @@
+enum FirebaseError {
+  documentNotFound,
+  unexpected
+}

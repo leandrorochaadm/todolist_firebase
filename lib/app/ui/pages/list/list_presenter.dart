@@ -6,5 +6,5 @@ import '../../../domain/entities/todo_entity.dart';
 abstract class ListPresenter extends BasePresenter {
   late ValueNotifier<List<TodoEntity>> todoListener;
 
-  void loadTodoList();
+  Future<void> loadTodoList();
 }
