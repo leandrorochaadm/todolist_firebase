@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_firebase/app/core/common/base_page_widget.dart';
 import 'package:todo_firebase/app/ui/pages/todolist/todolist.dart';
 
 class TodolistPage extends StatefulWidget {
@@ -14,6 +15,10 @@ class _TodolistPageState extends State<TodolistPage> {
   @override
   void initState() {
     widget.presenter.init();
+    widget.presenter.loadTodoList();
+    widget.presenter.state.addListener(() {
+      setState(() {});
+    });
     super.initState();
   }
 
@@ -25,12 +30,13 @@ class _TodolistPageState extends State<TodolistPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Lista de tarefas'),
-        centerTitle: true,
-      ),
-      body: Text(widget.presenter.state.toString()),
+    print('todo ${widget.presenter.state.value}');
+    return BasePageWidget(
+      state: widget.presenter.state,
+      title: 'Lista de tarefas',
+      child: widget.presenter.todoListener.value.isNotEmpty
+          ? Text(widget.presenter.todoListener.value.toString())
+          : const SizedBox.shrink(),
     );
   }
 }

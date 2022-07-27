@@ -21,17 +21,17 @@ class ValueNotifierTodoListPresenter implements TodolistPresenter {
   }
 
   @override
-  Future<void> init() async {
+  void init() async {
     _state = ValueNotifier(const UIInitialState());
     todoListener = ValueNotifier([]);
-    await loadTodoList();
   }
 
   @override
   Future<void> loadTodoList() async {
     try {
       setState(const UILoadingState());
-      todoListener.value = await getTodolist.call();
+      await Future.delayed(const Duration(seconds: 1));
+      todoListener.value = await getTodolist();
       setState(const UISuccessState(''));
     } catch (e) {
       setState(const UIErrorState('Erro ao recuperar lista de tarefas'));
@@ -43,7 +43,7 @@ class ValueNotifierTodoListPresenter implements TodolistPresenter {
 
   @override
   void setState(UIState newState) {
-    if (_state.value is! UIInactiveState && _state.value != newState) {
+    if (_state.value is! UIInactiveState /* && _state.value != newState*/) {
       _state.value = newState;
     }
   }

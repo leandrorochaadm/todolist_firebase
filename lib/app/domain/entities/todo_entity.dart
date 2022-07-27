@@ -17,4 +17,8 @@ class TodoEntity extends Equatable {
         status,
         category,
       ];
+  @override
+  String toString() {
+    return "$title, $status, $category";
+  }
 }
