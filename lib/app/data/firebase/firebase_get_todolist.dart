@@ -12,10 +12,13 @@ class FirebaseGetTodolist implements GetTodolist {
   @override
   Future<List<TodoEntity>> call() async {
     try {
-      final res = await firebaseClient.get(path: 'todolist') as List;
-      return res
-          .map((todo) => FirebaseTodolistModel.fromJson(todo).toEntity())
-          .toList();
+      final res = await firebaseClient.get(path: 'todolist/todolist');
+      final resList = (res['1'] as List<dynamic>);
+
+      final jsonList =
+          resList.map((todo) => FirebaseTodolistModel.fromJson(todo)).toList();
+      final entityList = jsonList.map((json) => json.toEntity()).toList();
+      return entityList;
     } catch (e) {
       throw DomainError.unexpected;
     }
