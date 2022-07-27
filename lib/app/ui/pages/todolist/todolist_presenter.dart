@@ -4,7 +4,7 @@ import '../../../core/common/base_presenter.dart';
 import '../../../domain/entities/todo_entity.dart';
 
 abstract class TodolistPresenter extends BasePresenter {
-  late ValueNotifier<List<TodoEntity>> todoListener;
+  ValueNotifier<List<TodoEntity>>? todoListener;
 
   Future<void> loadTodoList();
 }

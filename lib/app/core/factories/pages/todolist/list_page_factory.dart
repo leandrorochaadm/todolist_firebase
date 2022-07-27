@@ -1,4 +1,3 @@
-import '../../../../ui/pages/pages.dart';
-import '../pages.dart';
+import '../../../../ui/pages/todolist/todolist.dart';
 
-makeListPage() => TodolistPage(presenter: makeTodolistPresenteFactory());
+makeListPage(TodolistPresenter presenter) => TodolistPage(presenter: presenter);
