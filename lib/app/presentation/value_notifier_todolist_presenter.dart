@@ -7,7 +7,9 @@ import '../ui/pages/todolist/todolist.dart';
 
 class ValueNotifierTodoListPresenter implements TodolistPresenter {
   final GetTodolist getTodolist;
-  late ValueNotifier<UIState> _state;
+
+  @override
+  late ValueNotifier<UIState> state;
 
   ValueNotifierTodoListPresenter({required this.getTodolist});
 
@@ -22,7 +24,7 @@ class ValueNotifierTodoListPresenter implements TodolistPresenter {
 
   @override
   void init() async {
-    _state = ValueNotifier(const UIInitialState());
+    state = ValueNotifier(const UIInitialState());
     todoListener = ValueNotifier([]);
   }
 
@@ -39,12 +41,9 @@ class ValueNotifierTodoListPresenter implements TodolistPresenter {
   }
 
   @override
-  ValueNotifier<UIState> get state => _state;
-
-  @override
   void setState(UIState newState) {
-    if (_state.value is! UIInactiveState /* && _state.value != newState*/) {
-      _state.value = newState;
+    if (state.value is! UIInactiveState /* && state.value != newState*/) {
+      state.value = newState;
     }
   }
 }
