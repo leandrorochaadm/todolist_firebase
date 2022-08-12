@@ -17,8 +17,12 @@ class ValueNotifierTodoListPresenter implements TodolistPresenter {
   late ValueNotifier<List<TodoEntity>> todoListener;
 
   @override
+  late ValueNotifier<TodoEntity> todoSelected;
+
+  @override
   void dispose() {
     todoListener.dispose();
+    todoSelected.dispose();
     state.dispose();
   }
 
@@ -26,6 +30,11 @@ class ValueNotifierTodoListPresenter implements TodolistPresenter {
   void init() async {
     state = ValueNotifier(const UIInitialState());
     todoListener = ValueNotifier([]);
+    todoSelected = ValueNotifier(const TodoEntity(
+      title: 'title teste',
+      status: false,
+      category: 'category teste',
+    ));
   }
 
   @override
@@ -42,7 +51,7 @@ class ValueNotifierTodoListPresenter implements TodolistPresenter {
 
   @override
   void setState(UIState newState) {
-    if (state.value is! UIInactiveState /* && state.value != newState*/) {
+    if (state.value is! UIInactiveState && state.value != newState) {
       state.value = newState;
     }
   }

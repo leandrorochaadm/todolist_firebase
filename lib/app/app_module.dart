@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:todo_firebase/app/ui/pages/todolist/todolist.dart';
 
 import 'core/factories/factories.dart';
 import 'routes.dart';
+import 'ui/pages/todolist/todolist.dart';
 
 class AppModule {
   final TodolistPresenter todolistPresenter;
@@ -10,5 +10,6 @@ class AppModule {
 
   Map<String, WidgetBuilder> routes() => {
         Routes.Home: (BuildContext context) => makeListPage(todolistPresenter),
+        Routes.Form: (BuildContext context) => makeFormPage(todolistPresenter),
       };
 }
